@@ -1,0 +1,301 @@
+set nocompatible
+set number
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set incsearch
+set hlsearch
+set ic	"搜索时忽略大小写
+set smartcase
+filetype on " 侦测文件类型
+filetype plugin on
+syntax enable
+" 为C程序提供自动缩进
+set smartindent
+"禁止生成临时文件
+set nobackup
+set noswapfile
+set encoding=utf-8 
+set termencoding=utf-8 
+set formatoptions+=mM 
+set fencs=utf-8,gbk
+language messages zh_CN.utf-8 
+set go=             " 不要图形按钮
+"se cul	"高亮当前行
+set showcmd         " 输入的命令显示出来，看的清楚些 
+set autoread " 设置当文件被改动时自动载入
+set clipboard+=unnamed "共享剪贴板  
+"状态栏
+set stl=%f%m%=%-p%%
+"按键超时时间
+set timeoutlen=500
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => "模仿sublime"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"映射行移动
+imap <C-S-Up> <ESC>ddkPa
+map <C-S-Up> ddkP
+imap <C-S-Down> <ESC>ddpa
+map <C-S-Down> ddp
+"添加空行
+imap <C-CR> <ESC>o
+"映射删除行
+imap <S-Del> <ESC>dd
+map <S-Del> dd
+"backspace in Visual mode deletes selection
+vnoremap <BS> d
+set backspace=indent,eol,start
+"删除当前行
+imap <S-Del> <ESC>ddA
+" CTRL-C 复制
+vnoremap <C-C> "+ygv
+" CTRL-V 粘贴 
+noremap <C-V>	a<C-R>+<ESC>
+" 在插入模式下用CTRL-V
+imap <C-V>	<C-R>+
+" 在末行模式中也能用CTRL-V 
+cmap <C-V>		<C-R>+
+" 在可视模式中也能用CTRL-V 
+vmap <C-V>	"+p
+" Use CTRL-S for saving, also in Insert mode
+noremap <C-S>		:update<CR>
+vnoremap <C-S>		<C-C>:update<CR>
+inoremap <C-S>		<C-O>:update<CR>
+
+" "退出""""""""""""""""""""""""""
+imap jj <Esc>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => "自定义快捷键"
+"可用的前置字符：z、g、<space>、-、alt
+"可用的组合字符：<cr>、<space>、数字、
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => "g的扩展功能" g扩展不要用在插件上
+" 尽量都用在窗口操作上
+"打开关闭文件
+map gs :vsp<CR>
+map gq :q<CR>
+"在不同的窗口之间移动
+map gh <C-W>h
+map gj <C-W>j
+map gk <C-W>k
+map gl <C-W>l
+"定义的前进后退
+map gy <C-]>
+map gb <C-t>
+"" => "g的剩余：" 
+"	完全可用的：z c , . ; <space> <tab>
+"	可覆盖的：	w
+
+""" => "alt键扩展""""""""""""""""""""""
+"上下滚屏
+map <A-j> <C-d>zz
+map <A-k> <C-u>zz
+"map <A-j> :call MScroll(-1)<cr>
+"map <A-k> :call MScroll(1)<cr>
+"function MScroll(arg)
+	"if(a:arg==1)
+		"call cursor(line('.')-&scr,0)
+	"else
+		"call cursor(line('.')+&scr,0)
+	"endif
+"endfunction
+map <A-h> <C-y>k
+map <A-l> <C-e>j
+imap <A-h> <esc><C-y>ka
+imap <A-l> <esc><C-e>ja
+"打开quickfix
+map <A-c> :call MCopen()<cr>
+map <A-n> :cn<cr>
+map <A-p> :cp<cr>
+let g:ccopen_stat=0
+function MCopen()
+	if g:ccopen_stat==0
+		exe "copen"
+		let g:ccopen_stat=1
+	else
+		exe "ccl"
+		let g:ccopen_stat=0
+	endif
+endfunction
+"注释功能
+map <A-/> :call MCommit(getline("."))<cr>
+function MCommit(arg)
+"首先判断文件类型
+	if &ft=="c" || &ft=="cpp"
+		let cm_char='//'
+		let del_char="xx"
+	"elseif &ft=="py" || &ft=="sh"
+		"let cm_char='#'
+		"let del_char="x"
+	elseif &ft=='vim'
+		let cm_char='"'
+		let del_char="x"
+	else
+		let cm_char='#'
+		let del_char="x"
+	endif
+	if matchstr(a:arg,"^\\s\\{0,\\}" . cm_char . ".*")==""
+		exe "norm I" . cm_char
+	else
+		exe "norm ^" . del_char
+	endif
+endfunction
+"代替C-r
+imap <A-r> <C-r>
+cmap <A-r> <C-r>
+"粘贴功能
+imap <A-0> <C-r>0
+imap <A-1> <C-r>1
+imap <A-'> <C-r>"
+imap <A-p> <C-r>+
+cmap <A-0> <C-r>0
+cmap <A-1> <C-r>1
+cmap <A-'> <C-r>"
+cmap <A-p> <C-r>+
+"norm模式的复制与粘贴功能
+map <A-0> "0
+map <A-1> "1
+map <A-y> "+y
+vmap <A-0> "0
+vmap <A-1> "1
+vmap <A-p> "+p
+vmap <A-y> "+y
+
+"在非控制台版本中可以不做
+if has("gui_running")
+else
+	map <Esc>j <C-d>zz
+	map <Esc>k <C-u>zz
+	map <Esc>c :call MCopen()<cr>
+	map <Esc>n :cn<cr>
+	map <Esc>p :cp<cr>
+	map <Esc>/ :call MCommit(getline("."))<cr>
+	imap <Esc>r <C-r>
+	cmap <Esc>r <C-r>
+	map <Esc>h <C-y>k
+	map <Esc>l <C-e>j
+	imap <Esc>h <esc><C-y>ka
+	imap <Esc>l <esc><C-e>ja
+	"粘贴功能
+	imap <Esc>0 <C-r>0
+	imap <Esc>1 <C-r>1
+	imap <Esc>' <C-r>"
+	imap <Esc>p <C-r>+
+	cmap <Esc>0 <C-r>0
+	cmap <Esc>1 <C-r>1
+	cmap <Esc>' <C-r>"
+	cmap <Esc>p <C-r>+
+	"norm模式的复制与粘贴功能
+	map <Esc>0 "0
+	map <Esc>1 "1
+	map <Esc>y "+y
+	vmap <Esc>0 "0
+	vmap <Esc>1 "1
+	vmap <Esc>p "+p
+	vmap <Esc>y "+y
+endif
+"" => "z 功能"
+
+"完全可用的：p q u
+
+"" => "空格键 功能"
+"停止高亮
+map <Space>; :nohl<CR>
+"pwd
+map <Space>c :pwd<CR>
+"宏放映
+map <Space>q @q
+"行内移动
+map <Space>h ^
+map <Space>l $
+"替换
+map <SPACE>s "0<S-p>lde
+"在目录中查找
+map <SPACE>f :vimgrep /<c-r><C-w>/ **/*
+"打开新的tab
+map <SPACE>e :tabe<cr>
+"比较不同
+map <SPACE>d :vert diffs 
+"开diff模式
+map <SPACE>t :call Difft()<cr>
+map <SPACE>u :diffu<cr>
+function Difft()
+	if &diff
+		exe "diffo"
+	else
+		exe "difft"
+	endif
+endfunction
+"选择{块的首部和选择整个块
+map <space>o ]}%b^
+map <space>p ]}V%b
+"对所有文件的操作
+map <space>aw :wall<cr>
+map <space>aa :qa<cr>
+map <space>aq :qa!<cr>
+" 给插件用的：w 
+" 当前可用的：
+" <tab> r y i 
+" g j k '
+" z x v b n m , .
+
+"F功能键
+"替换
+map <f3>h :%s///g<left><left>
+
+"hex相关内容
+map <f8>h :call Mxxd()<cr>
+let g:xxd_stat=0
+function Mxxd()
+	if g:xxd_stat==0
+		exe "%!xxd -p"
+		let g:xxd_stat=1
+	else
+		exe "%!xxd -p -r"
+		let g:xxd_stat=0
+	endif
+endfunction
+
+"json格式化
+function! Mjsonmini()
+	exe "%s/[\\r\\n\\t ]//g"
+endfunction
+function! Mjsonfmt()
+python << EOF
+import vim
+def jsonfmt():
+	buf=''.join(vim.current.buffer[:])
+	tab_num=0;
+	outbf=[]
+	for x in buf:
+		if x=='{' or x=='[':
+			if len(outbf)>0 and outbf[-1].find('\t')==-1:
+				outbf+='\n'+'\t'*tab_num
+			outbf+=x+'\n\t'+'\t'*tab_num
+			tab_num=tab_num+1;
+		elif x=='}' or x==']':
+			tab_num=tab_num-1
+			if tab_num<=0:
+				tab_num=0
+			outbf+='\n'+'\t'*tab_num+x
+		elif x==',':
+			outbf+=',\n'
+			outbf+='\t'*tab_num
+		elif x==' ':
+			continue
+		elif x=='\t':
+			continue
+		else:
+			outbf+=x
+	str_all=''.join(outbf)
+	vim.current.buffer[:]=None
+	vim.current.buffer.append(str_all.split('\n'))
+EOF
+exe "py jsonfmt()"
+endfunction
+
+map <f8>j :call Mjsonfmt()<cr>
+map <f8>m :call Mjsonmini()<cr>
+

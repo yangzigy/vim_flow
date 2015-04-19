@@ -1,0 +1,35 @@
+#!/bin/sh
+
+copy()
+{
+	cp -vfr vimfiles/* ~/.vim
+	cp -vf _vimnp ~/_vimnp
+	cp -vf _vimp ~/_vimp
+	cp -vf _gvimrc ~/_gvimrc
+	cp -vf _vimrc_pl ~/_vimrc_pl
+}
+
+np()
+{
+	cp -v _vimnp ~/.vimrc
+}
+pl()
+{
+	copy
+	mv ~/_vimp ~/.vimrc
+}
+m()	#便携式的部署
+{
+	cp vimfiles .vim -r
+	cp _vimp .vimrc
+	cp _bashrc .bashrc
+	s=`pwd`
+	echo '#!/bin/sh\nexport HOME='$s'\nvim $*' > mvim
+	chmod +x mvim
+	ln -T mvim ~/bin/vif
+}
+
+#执行代码
+if [ $# -eq 1 ]; then #若只有一个参数，则执行相应的函数
+	$1
+fi
