@@ -24,7 +24,7 @@ m()	#便携式的部署
 	cp _vimp .vimrc
 	cp _bashrc .bashrc
 	s=`pwd`
-	echo '#!/bin/sh\nexport HOME='$s'\nvim $*' > mvim
+	echo -e '#!/bin/sh\nexport HOME='$s'\nvim $*' > mvim
 	chmod +x mvim
 	ln -T mvim ~/bin/vif
 }

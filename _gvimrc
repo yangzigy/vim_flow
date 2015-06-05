@@ -1,3 +1,15 @@
+
+let g:vimtweak_al=0		"windows透明的函数
+function Vimtweak_al_fun()
+	if g:vimtweak_al==0
+		call libcallnr("vimtweak.dll", "SetAlpha", 230)
+		let g:vimtweak_al=1
+	else
+		call libcallnr("vimtweak.dll", "SetAlpha", 255)
+		let g:vimtweak_al=0
+	endif
+endfunction
+
 color molokai
 if has("gui_gtk2")	                              
 	set guifont=DejaVu\ Sans\ Mono\ 13
@@ -5,5 +17,7 @@ elseif has("gui_macvim")
 	set guifont=DejaVu_Sans_Mono:h13
 elseif has("gui_win32")
 	set guifont=Consolas:h13
+	"窗口透明
+	map <space>al :call Vimtweak_al_fun()<cr>
 end
 

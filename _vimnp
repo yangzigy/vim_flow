@@ -245,6 +245,20 @@ map <space>aq :qa!<cr>
 "替换
 map <f3>h :%s///g<left><left>
 
+"wrap
+map <f8>w :call Mwrap()<cr>
+let g:wrap_stat=0
+function Mwrap()
+	if g:wrap_stat==0
+		set nowrap
+		let g:wrap_stat=1
+	else
+		set wrap
+		let g:wrap_stat=0
+	endif
+	echo "wrap " . &wrap
+endfunction
+
 "hex相关内容
 map <f8>h :call Mxxd()<cr>
 let g:xxd_stat=0
@@ -256,6 +270,19 @@ function Mxxd()
 		exe "%!xxd -p -r"
 		let g:xxd_stat=0
 	endif
+endfunction
+
+map <f8>b :call Mbinary()<cr>
+let g:binary_stat=0
+function Mbinary()
+	if g:binary_stat==0
+		set bin
+		let g:binary_stat=1
+	else
+		set nobin
+		let g:binary_stat=0
+	endif
+	echo "bin " . &bin
 endfunction
 
 "json格式化
