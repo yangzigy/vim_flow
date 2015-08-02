@@ -4,6 +4,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set autoindent
+set foldmethod=indent
+set nofoldenable
 set incsearch
 set hlsearch
 set ic	"搜索时忽略大小写
@@ -11,6 +13,8 @@ set smartcase
 filetype on " 侦测文件类型
 filetype plugin on
 syntax enable
+"set list lcs=tab:\┆\ 
+set list lcs=tab:\:\ 
 " 为C程序提供自动缩进
 set smartindent
 "禁止生成临时文件
@@ -27,9 +31,11 @@ set showcmd         " 输入的命令显示出来，看的清楚些
 set autoread " 设置当文件被改动时自动载入
 set clipboard+=unnamed "共享剪贴板  
 "状态栏
-set stl=%f%m%=%-p%%
+set stl=%f%m%=%l,%c,%-p%%
 "按键超时时间
 set timeoutlen=500
+map <F7> :updat<CR>:make<CR>
+imap <F7> <esc>:updat<CR>:make<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => "模仿sublime"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -132,6 +138,9 @@ function MCommit(arg)
 	elseif &ft=='vim'
 		let cm_char='"'
 		let del_char="x"
+	elseif &ft=='cs'
+		let cm_char='//'
+		let del_char="xx"
 	else
 		let cm_char='#'
 		let del_char="x"
@@ -216,8 +225,17 @@ map <SPACE>s "0<S-p>lde
 map <SPACE>f :vimgrep /<c-r><C-w>/ **/*
 "打开新的tab
 map <SPACE>e :tabe<cr>
-"比较不同
-map <SPACE>d :vert diffs 
+"插入日期时间
+map <SPACE>d :exe "norm a".strftime("%Y-%m-%d %H:%M:%S")<CR>
+"移动窗口
+map <space>1 :1 wincmd w<cr>
+map <space>2 :2 wincmd w<cr>
+map <space>3 :3 wincmd w<cr>
+map <space>4 :4 wincmd w<cr>
+map <space>5 :5 wincmd w<cr>
+map <space>6 :6 wincmd w<cr>
+map <space>7 :7 wincmd w<cr>
+map <space>8 :8 wincmd w<cr>
 "开diff模式
 map <SPACE>t :call Difft()<cr>
 map <SPACE>u :diffu<cr>
@@ -235,11 +253,14 @@ map <space>p ]}V%b
 map <space>aw :wall<cr>
 map <space>aa :qa<cr>
 map <space>aq :qa!<cr>
+map <space>y yy:call MCommit(getline("."))<cr>p
+"查看刚才查找的个数
+map <space>n :%s///gn<cr>
 " 给插件用的：w 
 " 当前可用的：
-" <tab> r y i 
+" <tab> r i 
 " g j k '
-" z x v b n m , .
+" z x v b m , .
 
 "F功能键
 "替换
