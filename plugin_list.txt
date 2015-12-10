@@ -36,14 +36,17 @@ vi工作流的插件：
 
 一般代码工具：
 	1、snipMate		代码提示和一般代码段录入
-	2、rainbow_parentheses	让括号带不同的颜色
+	2、AutoComplPop		自动补全
+	3、rainbow_parentheses	让括号带不同的颜色
 		添加启动触发
-	3、multiple_cursors		类似sublime的多个单词选择操作
-	4、bufexplorer	窗口管理器
-	5、winmanager	窗口管理器
-		配置：
-			快捷键
-	6、conque_term：	在vim中打开shell
+	4、multiple_cursors		类似sublime的多个单词选择操作
+	5、bufexplorer	文件管理器
+	6、NERD_tree	文件管理器
+	7、minibufexpl	文件管理器，在与NERD配合的时候，在一个文件夹内启动vim，切换到另一个文件夹打开文件会出现bug，minibufer窗体出现在上半个屏幕且没有内容
+		需要修改源代码：
+		将所有的    != '-MiniBufExplorer-'    改为    !~ '-MiniBufExplorer-'
+					== '-MiniBufExplorer-'    改为    =~ '-MiniBufExplorer-'
+	8、conque_term：	在vim中打开shell
 		为了在shell中不做代码提示，并加入行号，在autoload/conque_term.vim中：
 		搜索并注释conque_term#set_buffer_settings函数中的：setlocal nonumber
 		在函数 conque_term#on_focus 中：
@@ -64,7 +67,7 @@ vi工作流的插件：
 					echo 'on_blur'
 				endtry
 			endif
-	7、SrcExpl：	利用ctags进行代码查看
+	9、SrcExpl：	利用ctags进行代码查看
 		为了让SrcExpl的窗口小，不占用窗口行数，修改源代码，使其窗口出现在本窗口的下方：
 		（1）为使窗口出现在当前窗口的下方，而不是永远在所有窗口下方，在srcexpl.vim中：585行左右：
 			exe 'silent! rightbelow ' . string(g:SrcExpl_winHeight) . 'split ' . a:wincmd

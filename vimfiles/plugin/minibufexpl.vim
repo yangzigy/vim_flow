@@ -508,7 +508,7 @@ function! <SID>BufDeleteHandler()
   call <SID>UpdateAllBufferDicts(expand("<abuf>"),1)
 
   " Handle ':bd' command correctly
-  if (bufname('%') == '-MiniBufExplorer-' && <SID>NextNormalWindow() == -1 && len(s:BufList) > 0)
+  if (bufname('%') =~ '-MiniBufExplorer-' && <SID>NextNormalWindow() == -1 && len(s:BufList) > 0)
     if(tabpagenr('$') == 1)
       setlocal modifiable
       resize
@@ -604,7 +604,7 @@ function! <SID>StartExplorer(curBufNum)
   call s:SwitchWindow('w',0,l:winNum)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('StartExplorer called in invalid window',1)
     call <SID>DEBUG('Leaving StartExplorer()',10)
     return
@@ -697,7 +697,7 @@ function! <SID>StartExplorer(curBufNum)
   " to enter a buffer.
   if g:miniBufExplUseSingleClick == 1
     let l:mapcmd = ':nnoremap <silent> <LEFTMOUSE> <LEFTMOUSE>'
-    let l:clickcmd = ':if bufname("%") == "-MiniBufExplorer-" <bar> call <SID>MBESelectBuffer(0) <bar> endif <CR>'
+    let l:clickcmd = ':if bufname("%") =~ "-MiniBufExplorer-" <bar> call <SID>MBESelectBuffer(0) <bar> endif <CR>'
     " no mapping for leftmouse
     if maparg('<LEFTMOUSE>', 'n') == ''
       exec l:mapcmd . l:clickcmd
@@ -1084,7 +1084,7 @@ function! <SID>DisplayBuffers(curBufNum)
   call <SID>DEBUG('Entering DisplayExplorer('.a:curBufNum.')',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('DisplayBuffers called in invalid window',1)
     return
   endif
@@ -1114,7 +1114,7 @@ function! <SID>ResizeWindow()
   call <SID>DEBUG('Entering ResizeWindow()',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('ResizeWindow called in invalid window',1)
     call <SID>DEBUG('Leaving ResizeWindow()',10)
     return
@@ -1234,7 +1234,7 @@ function! <SID>ShowBuffers()
   call <SID>DEBUG('Entering ShowExplorer()',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('ShowBuffers called in invalid window',1)
     call <SID>DEBUG('Leaving ShowBuffers()',10)
     return
@@ -2107,7 +2107,7 @@ endfunction
 "
 function! <SID>QuitIfLastOpen() abort
   " Quit MBE if no more mormal window left
-  if (bufname('%') == '-MiniBufExplorer-') && (<SID>NextNormalWindow() == -1)
+  if (bufname('%') =~ '-MiniBufExplorer-') && (<SID>NextNormalWindow() == -1)
     call <SID>DEBUG('MBE is the last open window, quit it', 9)
     if tabpagenr('$') == 1
       " Before quitting Vim, delete the MBE buffer so that
@@ -2145,7 +2145,7 @@ function! <SID>GetSelectedBuffer()
   call <SID>DEBUG('Entering GetSelectedBuffer()',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('GetSelectedBuffer called in invalid window',1)
     call <SID>DEBUG('Leaving GetSelectedBuffer()',10)
     return -1
@@ -2194,7 +2194,7 @@ function! <SID>MBESelectBuffer(split)
   call <SID>DEBUG('Entering MBESelectBuffer()',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('MBESelectBuffer called in invalid window',1)
     call <SID>DEBUG('Leaving MBESelectBuffer()',10)
     return
@@ -2251,7 +2251,7 @@ function! <SID>MBEDeleteBuffer()
   call <SID>DEBUG('Entering MBEDeleteBuffer()',10)
 
   " Make sure we are in our window
-  if bufname('%') != '-MiniBufExplorer-'
+  if bufname('%') !~ '-MiniBufExplorer-'
     call <SID>DEBUG('MBEDeleteBuffer called in invalid window',1)
     call <SID>DEBUG('Leaving MBEDeleteBuffer()',10)
     return

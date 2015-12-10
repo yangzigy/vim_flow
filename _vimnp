@@ -1,6 +1,7 @@
 set nocompatible
 set number
 set tabstop=4
+set noexpandtab
 set softtabstop=4
 set shiftwidth=4
 set autoindent
@@ -109,8 +110,13 @@ map <A-k> <C-u>zz
 "endfunction
 map <A-h> <C-y>k
 map <A-l> <C-e>j
-imap <A-h> <esc><C-y>ka
-imap <A-l> <esc><C-e>ja
+"在插入和命令模式下的上下左右
+imap <A-h> <left>
+imap <A-l> <right>
+imap <A-j> <down>
+imap <A-k> <up>
+cmap <A-h> <left>
+cmap <A-l> <right>
 "打开quickfix
 map <A-c> :call MCopen()<cr>
 map <A-n> :cn<cr>
@@ -185,8 +191,11 @@ else
 	cmap <Esc>r <C-r>
 	map <Esc>h <C-y>k
 	map <Esc>l <C-e>j
-	imap <Esc>h <esc><C-y>ka
-	imap <Esc>l <esc><C-e>ja
+"在插入和命令模式下的上下左右
+	imap <Esc>h <left>
+	imap <Esc>l <right>
+	cmap <Esc>h <left>
+	cmap <Esc>l <right>
 	"粘贴功能
 	imap <Esc>0 <C-r>0
 	imap <Esc>1 <C-r>1
@@ -256,6 +265,13 @@ map <space>aq :qa!<cr>
 map <space>y yy:call MCommit(getline("."))<cr>p
 "查看刚才查找的个数
 map <space>n :%s///gn<cr>
+"使用单个变量编号
+map <space>i0 :let i=0<cr>
+map <space>i1 :let i=1<cr>
+map <space>ii :let i=i+1<cr>
+map <space>id :let i=i-1<cr>
+map <space>ia "=i<cr>P
+map <space>ip "=printf("%02X",i)<left><left><left><left>
 " 给插件用的：w 
 " 当前可用的：
 " <tab> r i 
@@ -266,6 +282,18 @@ map <space>n :%s///gn<cr>
 "替换
 map <f3>h :%s///g<left><left>
 
+"重新加载
+map <f5> :e<cr>
+"粘贴模式
+map <f8>p :call Mpaste()<cr>
+function Mpaste()
+	if &paste==1
+		set nopaste
+	else
+		set paste
+	endif
+	echo "paste " . &paste
+endfunction
 "wrap
 map <f8>w :call Mwrap()<cr>
 let g:wrap_stat=0
