@@ -1,8 +1,6 @@
 " ============================================================================
 " File:        NERD_tree.vim
-" Description: vim global plugin that provides a nice tree explorer
 " Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
-" Last Change: 28 December, 2011
 " License:     This program is free software. It comes without any warranty,
 "              to the extent permitted by applicable law. You can redistribute
 "              it and/or modify it under the terms of the Do What The Fuck You
@@ -68,6 +66,8 @@ call s:initVariable("g:NERDTreeShowHidden", 0)
 call s:initVariable("g:NERDTreeShowLineNumbers", 0)
 call s:initVariable("g:NERDTreeSortDirs", 1)
 call s:initVariable("g:NERDTreeDirArrows", !nerdtree#runningWindows())
+call s:initVariable("g:NERDTreeDirArrowExpandable", "▸")
+call s:initVariable("g:NERDTreeDirArrowCollapsible", "▾")
 call s:initVariable("g:NERDTreeCascadeOpenSingleChildDir", 1)
 
 if !exists("g:NERDTreeSortOrder")
@@ -148,7 +148,7 @@ call nerdtree#ui_glue#setupCommands()
 "============================================================
 augroup NERDTree
     "Save the cursor position whenever we close the nerd tree
-    exec "autocmd BufLeave ". g:NERDTreeCreator.BufNamePrefix() ."* call b:NERDTree.ui.saveScreenState()"
+    exec "autocmd BufLeave ". g:NERDTreeCreator.BufNamePrefix() ."* if g:NERDTree.IsOpen() | call b:NERDTree.ui.saveScreenState() | endif"
 
     "disallow insert mode in the NERDTree
     exec "autocmd BufEnter ". g:NERDTreeCreator.BufNamePrefix() ."* stopinsert"
@@ -185,8 +185,8 @@ function! NERDTreeRender()
 endfunction
 
 function! NERDTreeFocus()
-    if nerdtree#isTreeOpen()
-        call nerdtree#putCursorInTreeWin()
+    if g:NERDTree.IsOpen()
+        call g:NERDTree.CursorToTreeWin()
     else
         call g:NERDTreeCreator.TogglePrimary("")
     endif
@@ -196,6 +196,11 @@ function! NERDTreeCWD()
     call NERDTreeFocus()
     call nerdtree#ui_glue#chRootCwd()
 endfunction
+
+function! NERDTreeAddPathFilter(callback)
+    call g:NERDTree.AddPathFilter(a:callback)
+endfunction
+
 " SECTION: Post Source Actions {{{1
 call nerdtree#postSourceActions()
 

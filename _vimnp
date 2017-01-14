@@ -1,3 +1,7 @@
+if has("nvim")
+	tnoremap <Esc> <C-\><C-n>
+	set mouse=
+endif
 set nocompatible
 set number
 set tabstop=4
@@ -9,6 +13,7 @@ set foldmethod=indent
 set nofoldenable
 set incsearch
 set hlsearch
+set nrformats=
 set ic	"搜索时忽略大小写
 set smartcase
 filetype on " 侦测文件类型
@@ -69,6 +74,9 @@ vmap <C-V>	"+p
 noremap <C-S>		:update<CR>
 vnoremap <C-S>		<C-C>:update<CR>
 inoremap <C-S>		<C-O>:update<CR>
+"在插入模式的快捷键
+imap <C-a> <home>
+imap <C-e> <end>
 
 " "退出""""""""""""""""""""""""""
 imap jj <Esc>
