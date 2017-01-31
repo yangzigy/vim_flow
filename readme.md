@@ -1,4 +1,4 @@
-﻿vim_flow
+vim_flow
 ==========
 
 vim工作流，使用vim、bash构建便携式文本编辑工作流，工作流支持windows下gvim、和linux下的vim\neovim包括配置文件、插件、依赖库以及对特定问题的解决方式，可实现便携式运行，windows下无需安装，linux下可不干扰原有配置。  
@@ -123,6 +123,8 @@ bash的配置：在.bashrc中
 * 修改状态栏
 * 按键超时时间500ms
 ###快捷键
+
+```text
 * 编译: F7
 * 移动两行：<C-S-Up> <C-S-Down>
 * 在插入模式行中间插入新行：<C-CR>
@@ -155,19 +157,4 @@ bash的配置：在.bashrc中
 * json格式化,可视化，紧凑:<f8>j,<f8>m 
 * 打开文件查看器：<SPACE>w,<space><space>b,<space><space>m
 * 
-###窗口操作
-* 垂直分窗口： gs
-* 关闭窗口： gq
-* 在不同的窗口之间移动： gh gj gk gl
-* 上下滚屏: <A-j> <A-k>
-* 上下移动一行：<A-h><A-l>
-* 在插入和命令模式下的上下左右:alt+hjkl
-* 打开quickfix: <A-c>
-* 在搜索条目中找到上一条下一条：<A-n><A-p>
-* 按不同类型的文件注释：<A-/>
-* 打开新的tab: <SPACE>e
-* 移动窗口: <space>数字键移动到几号窗口
-* 在windows下窗口半透明：<space>al
-###变量
-* 设置变量，自增，输入：<space>i0,<space>ii,<space>ia
-* 
+```
