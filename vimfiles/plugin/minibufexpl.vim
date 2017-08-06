@@ -1124,7 +1124,7 @@ function! <SID>ResizeWindow()
   let l:save_rep = &report
   let l:save_sc  = &showcmd
   let &report    = 10000
-  set noshowcmd
+  "set noshowcmd
 
   let l:width  = winwidth('.')
 
@@ -1243,7 +1243,7 @@ function! <SID>ShowBuffers()
   let l:save_rep = &report
   let l:save_sc = &showcmd
   let &report = 10000
-  set noshowcmd
+  "set noshowcmd
 
   " We need to be able to modify the buffer
   setlocal modifiable
@@ -2154,7 +2154,7 @@ function! <SID>GetSelectedBuffer()
   let l:save_rep = &report
   let l:save_sc  = &showcmd
   let &report    = 10000
-  set noshowcmd
+  "set noshowcmd
 
   let l:save_reg = @"
   let @" = ""
@@ -2349,7 +2349,7 @@ function! <SID>DEBUG(msg, level)
     let l:save_rep    = &report
     let l:save_sc     = &showcmd
     let &report       = 10000
-    set noshowcmd
+    "set noshowcmd
 
     " Debug output to a buffer
     if g:miniBufExplDebugMode == 0
