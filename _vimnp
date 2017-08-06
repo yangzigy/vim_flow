@@ -52,14 +52,9 @@ imap <C-S-Down> <ESC>ddpa
 map <C-S-Down> ddp
 "添加空行
 imap <C-CR> <ESC>o
-"映射删除行
-imap <S-Del> <ESC>dd
-map <S-Del> dd
 "backspace in Visual mode deletes selection
 vnoremap <BS> d
 set backspace=indent,eol,start
-"删除当前行
-imap <S-Del> <ESC>ddA
 " CTRL-C 复制
 vnoremap <C-C> "+ygv
 " CTRL-V 粘贴 
