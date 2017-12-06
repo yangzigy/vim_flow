@@ -20,4 +20,4 @@ elseif has("gui_win32")
 	"窗口透明
 	map <space>al :call Vimtweak_al_fun()<cr>
 end
-
+"set renderoptions=type:directx,renmode:5,taamode:1 "使用directx渲染
