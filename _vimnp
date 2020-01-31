@@ -47,19 +47,12 @@ set hidden "让多缓冲区未保存也不提示
 set stl=%f%m%=%l,%c,%-p%%
 "按键超时时间
 set timeoutlen=500
-set path+=./**
+set path+=**  "设置搜索路径为当前路径下的所有文件夹
 map <F7> :updat<CR>:make<CR>
 imap <F7> <esc>:updat<CR>:make<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => "模仿sublime"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"映射行移动
-imap <C-S-Up> <ESC>ddkPa
-map <C-S-Up> ddkP
-imap <C-S-Down> <ESC>ddpa
-map <C-S-Down> ddp
-"添加空行
-imap <C-CR> <ESC>o
 "backspace in Visual mode deletes selection
 vnoremap <BS> d
 set backspace=indent,eol,start
@@ -388,4 +381,56 @@ endfunction
 
 map <f8>j :call Mjsonfmt()<cr>
 map <f8>m :call Mjsonmini()<cr>
+
+" c、h文件切换
+let alternateExtensionsDict = {}
+let g:alternateExtensionsDict['h'] = 'c,cpp,cxx,cc,CC'
+let g:alternateExtensionsDict['H'] = 'C,CPP,CXX,CC'
+let g:alternateExtensionsDict['hpp'] = 'c,cpp'
+let g:alternateExtensionsDict['HPP'] = 'C,CPP'
+let g:alternateExtensionsDict['c'] = 'h'
+let g:alternateExtensionsDict['C'] = 'H'
+let g:alternateExtensionsDict['cpp'] = 'h,hpp'
+let g:alternateExtensionsDict['CPP'] = 'H,HPP'
+let g:alternateExtensionsDict['cc'] = 'h'
+let g:alternateExtensionsDict['CC'] = 'H,h'
+let g:alternateExtensionsDict['cxx'] = 'h'
+let g:alternateExtensionsDict['CXX'] = 'H'
+function Open_c_h_file()
+	let extension = fnamemodify(expand("%:p"),':e') " 扩展名
+	let baseName  = expand("%:t:r") " 文件名不含路径
+	if(extension=="")
+		return 
+	endif
+	" 找扩展名对应的扩展名列表
+	let extSpec = ""
+	if (has_key(g:alternateExtensionsDict, extension))
+		let extSpec = g:alternateExtensionsDict[extension]
+	else
+		return 
+	endif
+	let itemStart = 0
+	let itemEnd = -1
+	while (1)
+		let i = 0
+		let itemStart = itemEnd + 1
+		let itemEnd = match(extSpec, ",", itemStart) " 找逗号作为结尾
+		if (itemEnd == -1)
+			let itemEnd = strlen(extSpec)
+			let i = 1
+		endif
+		let item = strpart(extSpec, itemStart, itemEnd - itemStart) " 生成扩展名
+		" 查找这个扩展名在各个路径中有没有
+		let filename=findfile(baseName . "." . item)
+		if(filename!="") " 若找到了这个文件
+			silent! execute ":e " . filename
+			break
+		endif
+		if (i == 1) " 若是最后一个
+			break
+		endif
+	endwhile 
+endfunction
+
+map <f6> :call Open_c_h_file()<cr>
 
