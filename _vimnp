@@ -1,11 +1,13 @@
+" 在终端进入普通模式，C-w n
+tnoremap <Esc> <C-\><C-n>
 if has("nvim")
-	tnoremap <Esc> <C-\><C-n>
 	set mouse=
 endif
 map <F9> :terminal<cr><esc>:call Mterm_map()<cr>i
 fun Mterm_map() "给终端做按键映射
-	map <buffer> i :startinsert<cr>
-	map <buffer> a :startinsert<cr>
+	unmap i
+	unmap a
+	map <buffer> p :call term_sendkeys(bufnr(),@")<CR>i
 endfunction
 	
 set nocompatible
