@@ -83,7 +83,16 @@ vim脚本：
 		    "silent! exe l:tmp . "wincmd w"
 		（4）发现此脚本生成ctags的时候会修改工作目录，将此功能去除，注释309行：
 			"silent! exe "cd " . expand('%:p:h')
-		（5）同时需要在脚本中做如下修改：
+			1479行的 " exe "set autochdir"   一定要去掉
+		（5）直接映射跳转键，使用原代码机制出错:
+			1580行，SrcExpl_Toggle函数内
+			SrcExpl_WinEnter函数直接return
+		（6）跳转时，文件名bug（后改出来的）
+			1162行，SrcExpl_ViewOneDef函数内：
+			call <SID>SrcExpl_WinEdit(fnamemodify(tagfiles()[0],':p:h'). '/' .
+			a:fpath)
+			代替原有判断
+		（6）同时需要在脚本中做如下修改：
 			let g:SrcExpl_pluginList = [
 			        \ "__Tag_List__",
 			        \ "_NERD_tree_"

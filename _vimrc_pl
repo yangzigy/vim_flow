@@ -39,7 +39,7 @@ let g:SrcExpl_pluginList = [
         \ "_NERD_tree_"
     \ ]
 nmap <F8>t :SrcExplToggle<CR>
-let g:SrcExpl_winHeight = 6
+let g:SrcExpl_winHeight = 8
 let g:SrcExpl_gobackKey = "<f8>b"
 let g:SrcExpl_refreshTime = 500
 
