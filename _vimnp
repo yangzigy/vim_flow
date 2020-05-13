@@ -100,6 +100,7 @@ map gl <C-W>l
 "定义的前进后退
 map gy <C-]>
 map gb <C-t>
+map g; :!ctags -R .<cr>
 "" => "g的剩余：" 
 "	完全可用的：z c , . ; <space> <tab>
 "	可覆盖的：	w
@@ -257,6 +258,8 @@ map <space>8 :8 wincmd w<cr>
 "开diff模式
 map <SPACE>t :call Difft()<cr>
 map <SPACE>u :diffu<cr>
+"误触太多，应保留
+"map <SPACE>g :!ctags -R .<cr>
 function Difft()
 	if &diff
 		exe "diffo"
@@ -282,7 +285,7 @@ map <space>id :let i=i-1<cr>
 map <space>ia "=i<cr>P
 map <space>ip "=printf("%02X",i)<left><left><left><left>
 " 给插件用的：w 
-" 当前可用的：
+"" => "<space>的剩余：" 
 " <tab> r i 
 " g j k '
 " z x v b m , .
