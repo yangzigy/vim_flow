@@ -43,4 +43,4 @@ let g:SrcExpl_winHeight = 8
 let g:SrcExpl_gobackKey = "<f8>b"
 let g:SrcExpl_refreshTime = 500
 
-map <Tab> <Plug>(easymotion-prefix)
+map <F3> <Plug>(easymotion-prefix)
