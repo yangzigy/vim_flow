@@ -21,7 +21,8 @@ map <space><space>m :MBEToggle<cr>
 let $TMPDIR = $VIM . '/tmp'  "cscope要求有一个临时路径
 :set cscopequickfix=s-,c-,d-,i-,t-,e-
 map <space>\ :try<cr>sil cs kill 0<cr>catch<cr>echo 'no connect'<cr>endtry<cr>:!cscope -Rbk<cr>:cs add cscope.out<cr>
-map gr :cs find 0 <c-r><C-w><s-left><left> "默认是查找所有引用
+map gr :cs find 0 <c-r><C-w><s-left><left>
+"以上默认是查找所有引用
 
 "clang_complete
 let g:clang_complete_copen=0
