@@ -18,7 +18,10 @@ map <space><space>b :7 sp<cr>:BufExplorer<cr>
 map <space><space>m :MBEToggle<cr>
 
 "cscope
+let $TMPDIR = $VIM . '/tmp'  "cscope要求有一个临时路径
+:set cscopequickfix=s-,c-,d-,i-,t-,e-
 map <space>\ :try<cr>sil cs kill 0<cr>catch<cr>echo 'no connect'<cr>endtry<cr>:!cscope -Rbk<cr>:cs add cscope.out<cr>
+map gr :cs find 0 <c-r><C-w><s-left><left> "默认是查找所有引用
 
 "clang_complete
 let g:clang_complete_copen=0
@@ -43,4 +46,4 @@ let g:SrcExpl_winHeight = 8
 let g:SrcExpl_gobackKey = "<f8>b"
 let g:SrcExpl_refreshTime = 500
 
-map <F3> <Plug>(easymotion-prefix)
+map <A-s> <Plug>(easymotion-prefix)
