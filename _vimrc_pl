@@ -1,6 +1,15 @@
 
 "插件
 color desert
+" 各前置字符的组合剩余：
+" <cr> 全
+" <backspace> 全
+" <tab> 全
+" g:	
+"	完全可用的：z c , . / <space> <tab> [ o <backspace> <cr> ' 
+"	可覆盖的：	w e r i p d x n m
+" <space>:
+"	 <tab> r <backspace> <cr> g j k ' z x v b m , .
 
 "rainbow_parentheses
 "au VimEnter * RainbowParenthesesToggle
@@ -18,11 +27,7 @@ map <space><space>b :7 sp<cr>:BufExplorer<cr>
 map <space><space>m :MBEToggle<cr>
 
 "cscope
-let $TMPDIR = $VIM . '/tmp'  "cscope要求有一个临时路径
-:set cscopequickfix=s-,c-,d-,i-,t-,e-
 map <space>\ :try<cr>sil cs kill 0<cr>catch<cr>echo 'no connect'<cr>endtry<cr>:!cscope -Rbk<cr>:cs add cscope.out<cr>
-map gr :cs find 0 <c-r><C-w><s-left><left>
-"以上默认是查找所有引用
 
 "clang_complete
 let g:clang_complete_copen=0
@@ -47,4 +52,6 @@ let g:SrcExpl_winHeight = 8
 let g:SrcExpl_gobackKey = "<f8>b"
 let g:SrcExpl_refreshTime = 500
 
-map <A-s> <Plug>(easymotion-prefix)
+"map <A-s> <Plug>(easymotion-prefix)
+" 在命令行中，alt不好用
+map <space>m <Plug>(easymotion-prefix)s

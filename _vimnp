@@ -82,9 +82,11 @@ imap JJ <Esc>
 imap jJ <Esc>
 imap Jj <Esc>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => "自定义快捷键"
-"可用的前置字符：z、g、<space>、-、alt
-"可用的组合字符：<cr>、<space>、数字、
+"" => "自定义快捷键" 减少CTRL的使用
+"可用的前置字符：
+"	<alt>	在终端中不好使，少用
+"	z、-、<backspace>、<tab>、<cr> 多少有点不好按
+"	g、<space> 好用，优先用
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => "g的扩展功能" g扩展不要用在插件上
@@ -100,10 +102,15 @@ map gl <C-W>l
 "定义的前进后退
 map gy <C-]>
 map gb <C-t>
-map g; :!ctags -R .<cr>
+map g; :!ctags -R .
+" gv	上次选中
+" gt	切换标签
+" gu/U	切换为小写/大写
+" ga	显示当前字符的二进制j
+" gf	根据光标下的文件名转到文件
 "" => "g的剩余：" 
-"	完全可用的：z c , . ; <space> <tab>
-"	可覆盖的：	w e r i p [ 
+"	完全可用的：z c , . / <space> <tab> [ o <backspace> <cr> ' 
+"	可覆盖的：	w e r i p d x n m
 
 """ => "alt键扩展""""""""""""""""""""""
 "上下滚屏
@@ -286,9 +293,7 @@ map <space>ia "=i<cr>P
 map <space>ip "=printf("%02X",i)<left><left><left><left>
 " 给插件用的：w 
 "" => "<space>的剩余：" 
-" <tab> r i 
-" g j k '
-" z x v b m , .
+" <tab> r <backspace> <cr> g j k ' z x v b m , .
 
 "F功能键
 "替换
