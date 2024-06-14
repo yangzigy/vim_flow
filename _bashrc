@@ -1,6 +1,15 @@
 # .bashrc
 
 # User specific aliases and functions
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias gst='git status'
+alias glo='git log --oneline --decorate'
+alias glg='git log --stat'
+alias gc='git commit -v'
+alias gd='git diff'
 
 alias rm='rm -i'
 alias cp='cp -i'

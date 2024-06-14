@@ -54,4 +54,7 @@ let g:SrcExpl_refreshTime = 500
 
 "map <A-s> <Plug>(easymotion-prefix)
 " 在命令行中，alt不好用
-map <space>m <Plug>(easymotion-prefix)s
+" 向后查找
+map <space>j <Plug>(easymotion-prefix)w
+" 向前查找
+map <space>k <Plug>(easymotion-prefix)b
